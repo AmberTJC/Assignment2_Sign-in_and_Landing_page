@@ -1,5 +1,6 @@
 {
   "expo": {
+    "plugins": [["expo-router"]],
     "name": "Assignment2",
     "slug": "Assignment2",
     "version": "1.0.0",
