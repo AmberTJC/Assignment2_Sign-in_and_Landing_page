@@ -1,17 +1,12 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import Login from './app/Login';
-
-const Stack = createStackNavigator();
+import { SafeAreaView } from 'react-native';
+import Login from './app/index';
 
 const App = () => {
     return (
-        <NavigationContainer>
-            <Stack.Navigator initialRouteName="Login">
-                <Stack.Screen name="Login" component={Login} />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <SafeAreaView style={{ flex: 1 }}>
+            <Login />
+        </SafeAreaView>
     );
 };
 
