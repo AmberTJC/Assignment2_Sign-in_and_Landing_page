@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Text, StyleSheet } from 'react-native';
+import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import credentials from './credentials.json';
+import credentials from '../credentials.json';
 
 type LoginScreenNavigationProp = StackNavigationProp<{
     Home: undefined; 
@@ -37,7 +37,7 @@ const Login: React.FC<Props> = ({ navigation }) => {
                 setErrorMessage('Incorrect password.');
             } else {
                 setErrorMessage('');
-                navigation.navigate('Home'); 
+                navigation.navigate('Home');
             }
         }
     };
@@ -58,7 +58,9 @@ const Login: React.FC<Props> = ({ navigation }) => {
                 onChangeText={setPassword}
             />
             {errorMessage ? <Text style={styles.error}>{errorMessage}</Text> : null}
-            <Button title="Login" onPress={handleLogin} />
+            <TouchableOpacity style={styles.button} onPress={handleLogin}>
+                <Text style={styles.buttonText}>Login</Text>
+            </TouchableOpacity>
         </View>
     );
 };
@@ -67,19 +69,33 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        padding: 16,
+        padding: 32,
+        backgroundColor: '#f5f5f5',
     },
     input: {
-        height: 40,
-        borderColor: 'gray',
+        height: 50,
+        borderColor: '#007BFF',
         borderWidth: 1,
-        marginBottom: 12,
-        paddingHorizontal: 8,
+        borderRadius: 8,
+        marginBottom: 16,
+        paddingHorizontal: 16,
+        fontSize: 16,
     },
     error: {
-        color: 'red',
-        marginBottom: 12,
+        color: '#FF3B30',
+        marginBottom: 16,
+        fontSize: 14,
+    },
+    button: {
+        backgroundColor: '#007BFF',
+        borderRadius: 8,
+        paddingVertical: 12,
+    },
+    buttonText: {
+        color: '#FFFFFF',
+        textAlign: 'center',
+        fontSize: 16,
     },
 });
 
-export default Login; 
+export default Login;
