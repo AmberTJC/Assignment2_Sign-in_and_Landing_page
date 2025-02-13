@@ -4,6 +4,7 @@ import credentials from '../credentials.json';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
+
 type RootStackParamList = {
   Index: undefined; 
   Home: undefined;  
@@ -21,13 +22,16 @@ const Login: React.FC = () => {
   const navigation = useNavigation<LoginScreenNavigationProp>();
 
   const validateInput = () => {
-    if (username.length < 5 || username.length > 8) {
-      setErrorMessage('Username must be at least 5 characters long.');
-      return false;
+    // Validate username length
+    if (username.length < 5) {
+        setErrorMessage('Username must be at least 5 characters long.');
+        return false;
     }
-    if (password.length < 8 || !/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/\d/.test(password) || !/[\W_]/.test(password)) {
-      setErrorMessage('Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.');
-      return false;
+    // Validate password complexity
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+    if (!passwordRegex.test(password)) {
+        setErrorMessage('Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.');
+        return false;
     }
     return true;
   };
@@ -48,6 +52,7 @@ const Login: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.welcome}>Welcome to the App!</Text>
       <TextInput
         placeholder="Username"
         value={username}
@@ -63,7 +68,9 @@ const Login: React.FC = () => {
       />
       {errorMessage ? <Text style={styles.error}>{errorMessage}</Text> : null}
       {successMessage ? <Text style={styles.success}>{successMessage}</Text> : null}
-      <Button title="Login" onPress={handleLogin} color="#007BFF" />
+      <View style={styles.buttonContainer}>
+        <Button title="Login" onPress={handleLogin} color="#fff" />
+      </View>
     </View>
   );
 };
@@ -73,16 +80,30 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 16,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#F0F0F0', 
+  },
+  welcome: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333', 
+    textAlign: 'center',
+    marginBottom: 20,
   },
   input: {
     height: 50,
-    borderColor: '#007BFF',
-    borderWidth: 2,
+    borderColor: '#ccc', 
+    borderWidth: 1,
     borderRadius: 5,
     marginBottom: 12,
     paddingHorizontal: 10,
     fontSize: 16,
+    backgroundColor: '#fff', 
+  },
+  buttonContainer: {
+    backgroundColor: '#007BFF', 
+    borderRadius: 5,
+    overflow: 'hidden',
+    marginTop: 10,
   },
   error: {
     color: 'red',
