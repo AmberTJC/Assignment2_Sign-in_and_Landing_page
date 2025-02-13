@@ -1,6 +1,6 @@
 
 import { useNavigation } from "expo-router";
-import { Linking, Text } from "react-native";
+import { Linking, Text , StyleSheet} from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 
@@ -15,12 +15,21 @@ const CityLink: React.FC<CityLinkProps> = ({cityName, cityURL}) => {
 
 return(
     <TouchableOpacity onPress={goToSite}>
-        <Text>Website for: {cityName}</Text>
+        <Text style = {styles.link}>Website for: {cityName}</Text>
     </TouchableOpacity>
 );
 
 };
 
+const styles = StyleSheet.create({
+    
+  link:{
+    textAlign: "center",
+    textDecorationLine: "underline",
+    color: "blue"
+  },
+
+});
 
 
     
